@@ -1,10 +1,10 @@
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-class SubTask implements Runnable {
+class SubEnumSort implements Runnable {
     private int begin;
     private int end;
-    public SubTask(int begin,int end) {
+    public SubEnumSort(int begin, int end) {
         this.begin = begin;
         this.end = end;
     }
@@ -29,10 +29,10 @@ public class ParallelEnumSort {
         long startTime = System.nanoTime();
         for(int i = 0;i<numOfThreads;i++) {
             if(i==numOfThreads-1) {
-                executorService.execute(new SubTask(i*subLength,Data.length-1));
+                executorService.execute(new SubEnumSort(i*subLength,Data.length-1));
             }
             else {
-                executorService.execute(new SubTask(i*subLength,i*subLength+subLength-1));
+                executorService.execute(new SubEnumSort(i*subLength,i*subLength+subLength-1));
             }
         }
         executorService.shutdown();

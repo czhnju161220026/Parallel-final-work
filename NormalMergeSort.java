@@ -1,5 +1,5 @@
 public class NormalMergeSort {
-    private static void merge(int[] array,int begin,int mid,int end) {
+    public static void merge(int[] array,int begin,int mid,int end) {
         int []b = new int[end-begin+1];
         int i = begin,j=mid+1;
         int p = 0;
@@ -29,7 +29,7 @@ public class NormalMergeSort {
             array[i] = b[i-begin];
         }
     }
-    private static void myMergeSort(int[] array,int begin, int end) {
+    public static void myMergeSort(int[] array,int begin, int end) {
         if(begin < end) {
             int mid = (begin+end)/2;
             myMergeSort(array,begin,mid);

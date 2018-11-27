@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Scanner;
 
 public class Main {
     private static  float time = 0;
@@ -28,6 +27,11 @@ public class Main {
         time = ParallelEnumSort.sort(8);
         System.out.println("Parallel EnumSort: "+time+" ms.");
         Data.outputFile("res4.txt");
+        Data.fresh();
+
+        time = ParalleMergeSort.sort(4);
+        System.out.println("Paralle MergeSort: "+time+" ms.");
+        Data.outputFile("res5.txt");
         Data.fresh();
     }
 }
