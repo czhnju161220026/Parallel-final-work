@@ -68,6 +68,7 @@ public class ParalleMergeSort {
                 break;
             }
         }
+        //System.out.println((float)(System.nanoTime()-startTime)/1000000);
         mergeBlocks(splits);
         long endTime = System.nanoTime();
         return (float)(endTime-startTime)/1000000;
