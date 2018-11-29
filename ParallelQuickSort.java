@@ -17,7 +17,23 @@ class SubQuickSort implements Runnable {
         }
         else {
             ExecutorService executorService = Executors.newCachedThreadPool();
-            int splitPoint = NormalQuickSort.partition(Data.resultList,begin,end);
+            int left = begin;
+            int right = end;
+            int mid = (begin + end)/2;
+            int splitPoint = -1;
+            while(splitPoint!=mid) {
+                splitPoint = NormalQuickSort.partition(Data.resultList,left,right);
+                if(splitPoint<mid) {
+                    left = splitPoint+1;
+                }
+                else if(splitPoint>mid) {
+                    right = splitPoint-1;
+                }
+                else {
+                    break;
+                }
+            }
+            //System.out.println("Split point = "+splitPoint);
             executorService.execute(new SubQuickSort(begin,splitPoint-1,height+1));
             executorService.execute(new SubQuickSort(splitPoint+1,end,height+1));
             executorService.shutdown();
@@ -30,7 +46,7 @@ class SubQuickSort implements Runnable {
         }
     }
 }
-public class ParalleQuickSort {
+public class ParallelQuickSort {
     public static float sort() {
         long startTime = System.nanoTime();
         ExecutorService executorService = Executors.newCachedThreadPool();

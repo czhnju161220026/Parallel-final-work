@@ -1,44 +1,37 @@
 import java.io.*;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main {
     private static  float time = 0;
 
     public static void main(String[] args) throws IOException{
         Data.init();
-        //串行归并排序
-        time = NormalMergeSort.sort();
-        System.out.println("Normal MergeSort: "+time+" ms.");
-        Data.outputFile("res1.txt");
-        Data.fresh();
-        //串行快排
 
-        time = NormalQuickSort.sort();
-        System.out.println("Normal QuickSort: "+time+" ms.");
-        Data.outputFile("res2.txt");
-        Data.fresh();
-        //串行枚举排序
-        time = NormalEnumSort.sort();
-        System.out.println("Normal EnumSort: "+time+" ms.");
-        Data.outputFile("res3.txt");
-        Data.fresh();
+        ArrayList<Float>mSortRuntime = new ArrayList<>();
+        ArrayList<Float>pMSortRuntime = new ArrayList<>();
+        BufferedWriter logWriter = new BufferedWriter(new FileWriter(new File("Log.txt")));
+        System.out.println("----------------Merge Sort----------------");
+        logWriter.write("----------------Merge Sort----------------\n");
+        for(int i = 0;i < 50;i++) {
+            mSortRuntime.add(NormalMergeSort.sort());
+            Data.fresh();
+            pMSortRuntime.add(ParallelMergeSort.sort(4));
+            Data.fresh();
+        }
+        for(int i = 0;i<50;i++) {
+            logWriter.write("Normal Merge Sort: "+mSortRuntime.get(i)+" ms.\n");
+            logWriter.write("Parallel Merge Sort: "+pMSortRuntime.get(i)+" ms.\n");
+        }
+        Collections.sort(mSortRuntime);
+        Collections.sort(pMSortRuntime);
+        System.out.println("The median of normal merge sort run time: "+mSortRuntime.get(24));
+        System.out.println("The median of parallel merge sort run time: "+pMSortRuntime.get(24));
+        System.out.println("Speedup Ratio: "+mSortRuntime.get(24)/pMSortRuntime.get(24));
+        logWriter.write("The median of normal merge sort run time: "+mSortRuntime.get(24)+"\n");
+        logWriter.write("The median of parallel merge sort run time: "+pMSortRuntime.get(24)+"\n");
+        logWriter.write("Speedup Ratio: "+mSortRuntime.get(24)/pMSortRuntime.get(24)+"\n");
 
-        System.out.println("------------------------------------------");
-        //并行归并排序
-        time = ParalleMergeSort.sort(4);
-        System.out.println("Paralle MergeSort: "+time+" ms.线程数4");
-        Data.outputFile("res4.txt");
-        Data.fresh();
-        //并行快速排序
-        time  = ParalleQuickSort.sort();
-        System.out.println("Paralle QuickSort: "+time+" ms.线程数2");
-        Data.outputFile("res5.txt");
-        Data.fresh();
-        //并行枚举排序
-        time = ParallelEnumSort.sort(8);
-        System.out.println("Parallel EnumSort: "+time+" ms.线程数8");
-        Data.outputFile("res6.txt");
-        Data.fresh();
-
+        logWriter.flush();
     }
 }

@@ -14,7 +14,7 @@ class SubMergeSort implements Runnable {
     }
 }
 
-public class ParalleMergeSort {
+public class ParallelMergeSort {
     private static void mergeBlocks(ArrayList<Integer>splits) {
         int[] index = new int[splits.size()];
         int[] tempRes = new int[Data.length];
