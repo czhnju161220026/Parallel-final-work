@@ -10,10 +10,10 @@ public class Data {
     public static int[] resultList= new int[length];
 
     public static void init() throws IOException {
-        length = 30000;
-        rawData = new int[30000];
-        resultList = new int[30000];
-        Scanner scanner = new Scanner(new File("random.txt"));
+        length = 60000;
+        rawData = new int[60000];
+        resultList = new int[60000];
+        Scanner scanner = new Scanner(new File("random3.txt"));
         int count = 0;
         while(scanner.hasNextInt()) {
             rawData[count] = scanner.nextInt();
